@@ -3,14 +3,16 @@ package com.example.roomlocaldbtugas9.ui.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.roomlocaldbtugas9.ui.costumwidget.DestinasiInsert
-import com.example.roomlocaldbtugas9.ui.costumwidget.InsertMhsView
+import com.example.roomlocaldbtugas9.ui.view.mahasiswa.DestinasiInsert
+import com.example.roomlocaldbtugas9.ui.view.mahasiswa.InsertMhsView
 
 @Composable
 fun PengelolaHalaman(
-    navController: NavController = rememberNavController(),
+    navController: NavHostController = rememberNavController(),
     modifier: Modifier = Modifier
 ){
     NavHost(navController = navController, startDestination = DestinasiInsert.route){
