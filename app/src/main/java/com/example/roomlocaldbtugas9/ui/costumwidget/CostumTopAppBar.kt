@@ -47,5 +47,6 @@ fun CostumTopAppBar(
             fontSize = 25.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.align(Alignment.Center)
+        )
     }
 }
