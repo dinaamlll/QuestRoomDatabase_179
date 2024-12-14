@@ -65,14 +65,14 @@ Scaffold (
 ){ padding->
     Column (
     modifier = Modifier
-        .fillMaxSize()
+        .fillMaxWidth()
         .padding(padding)
         .padding(16.dp)
     ){
         CostumTopAppBar(
             onBack = onBack,
             showBackButton = true,
-            judul = "Tambahkan Mahasiswa"
+            judul = "Tambah Mahasiswa"
         )
         //Isi Body
         InsertBodyMhs(uiState = uiState,
@@ -195,10 +195,10 @@ fun FormMahasiswa(
                 onValueChange(mahasiswaEvent.copy(alamat = it))
             },
             label = { Text("Alamat") },
-            isError = errorState.nim != null,
+            isError = errorState.alamat != null,
             placeholder = { Text("Masukkan Alamat") },
         )
-        Text(text = errorState.nim ?: "", color = Color.Red)
+        Text(text = errorState.alamat ?: "", color = Color.Red)
 
         Spacer(modifier = Modifier.height(16.dp))
         Text(text = "Kelas")
