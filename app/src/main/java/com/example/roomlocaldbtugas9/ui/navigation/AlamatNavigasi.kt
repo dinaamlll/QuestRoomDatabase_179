@@ -2,7 +2,7 @@ package com.example.roomlocaldbtugas9.ui.navigation
 
 interface AlamatNavigasi {
     val route: String
-
+}
     object DestinasiHome : AlamatNavigasi{
         override val route = "home"
     }
@@ -16,4 +16,3 @@ interface AlamatNavigasi {
         const val NIM ="nim"
         val routesWithArg = "$route/{$NIM}"
     }
-}
