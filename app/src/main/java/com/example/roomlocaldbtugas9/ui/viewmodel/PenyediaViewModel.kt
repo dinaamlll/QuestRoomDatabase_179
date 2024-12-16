@@ -1,7 +1,9 @@
 package com.example.roomlocaldbtugas9.ui.viewmodel
 
+import UpdateMhsViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
@@ -13,6 +15,23 @@ object PenyediaViewModel{
         initializer {
             MahasiswaViewModel(
                 krsApp().containerApp.repositoryMhs
+            )
+        }
+        initializer {
+            HomeMhsViewModel(
+                krsApp().containerApp.repositoryMhs
+            )
+        }
+        initializer {
+            DetailMhsViewModel(
+                createSavedStateHandle(),
+                krsApp().containerApp.repositoryMhs,
+            )
+        }
+        initializer {
+            UpdateMhsViewModel(
+                createSavedStateHandle(),
+                krsApp().containerApp.repositoryMhs,
             )
         }
     }
