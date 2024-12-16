@@ -20,6 +20,17 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 
+    fun deleteMhs() {
+        detailUiState.value.detailUiEvent.toMahasiswaEntity().let{
+            viewModelScope.launch{
+                repositoryMhs.deleteMhs(it)
+            }
+        }
+    }
+}
+
+
+
 data class DetailUiState(
     val detailUiEvent: MahasiswaEvent = MahasiswaEvent(),
     val isLoading: Boolean = false,
