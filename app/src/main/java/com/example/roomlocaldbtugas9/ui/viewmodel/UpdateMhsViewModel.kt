@@ -1,4 +1,21 @@
-package com.example.roomlocaldbtugas9.ui.viewmodel
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.roomlocaldbtugas9.data.entity.Mahasiswa
+import com.example.roomlocaldbtugas9.repository.RepositoryMhs
+import com.example.roomlocaldbtugas9.ui.navigation.DestinasiUpdate
+import com.example.roomlocaldbtugas9.ui.viewmodel.FormErrrorState
+import com.example.roomlocaldbtugas9.ui.viewmodel.MahasiswaEvent
+import com.example.roomlocaldbtugas9.ui.viewmodel.MhsUIState
+import com.example.roomlocaldbtugas9.ui.viewmodel.toDetailUiEvent
+import com.example.roomlocaldbtugas9.ui.viewmodel.toMahasiswaEntity
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 class UpdateMhsViewModel(
     savedStateHandle: SavedStateHandle,
@@ -33,3 +50,35 @@ class UpdateMhsViewModel(
         updateUIState = updateUIState.copy(isEntryValid = errorState)
         return errorState.isValid()
     }
+    fun updateData(){
+        val currentEvent = updateUIState.mahasiswaEvent
+        if (validateFields()){
+            viewModelScope.launch {
+                try {
+                    repositoryMhs.updateMhs(currentEvent.toMahasiswaEntity())
+                    updateUIState = updateUIState.copy(
+                        snackBarMessage = "Data berhasil diupdate",
+                        mahasiswaEvent = MahasiswaEvent(),
+                        isEntryValid = FormErrrorState()
+                    )
+                    println("snackBarMessage diatur: ${updateUIState.snackBarMessage}")
+                } catch (e: Exception) {
+                    updateUIState = updateUIState.copy(
+                        snackBarMessage = "Data gagal di update"
+                    )
+                }
+            }
+        } else {
+            updateUIState = updateUIState.copy (
+                snackBarMessage = "Data gagal diupdate"
+            )
+        }
+    }
+    fun resetSnackBarMessage(){
+        updateUIState = updateUIState.copy(snackBarMessage = null)
+    }
+}
+
+fun Mahasiswa.toUIStateMhs() : MhsUIState = MhsUIState(
+    mahasiswaEvent = this.toDetailUiEvent(),
+)
